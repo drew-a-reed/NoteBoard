@@ -1,0 +1,91 @@
+.note {
+  padding: 1rem;
+  overflow: hidden;
+  border-radius: 5%;
+  overflow: auto;
+  box-shadow: 1px 1px 11px 0px rgba(0, 0, 0, 0.7);
+  width: 90%;
+  margin: auto;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  background-color: #f5f6f7;
+}
+
+.note p {
+  color: #000;
+}
+
+.note-title {
+  text-align: center;
+  text-transform: capitalize;
+  color: #000;
+}
+
+.note-info {
+  display: none;
+}
+
+.note-buttons {
+  display: flex;
+  gap: 5px;
+  justify-content: end;
+  align-items: end;
+}
+
+.red {
+  background-color: red;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.green {
+  background-color: green;
+}
+
+.note-priority-color {
+  width: 10%;
+  height: 1rem;
+  opacity: 1;
+  border-radius: 15px;
+}
+
+.quick-info {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.note-header:hover {
+  cursor: move;
+}
+
+.note-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.note-dropdown label {
+  margin-right: 0.5rem;
+}
+
+.note-dropdown select {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  padding: 0.25rem;
+}
+
+.dropdown select {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+}
+
+.dropdown option {
+  background-color: #fff;
+  color: #000;
+}

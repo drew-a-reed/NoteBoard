@@ -1,0 +1,41 @@
+<div class="new-note-container">
+  <div class="new-note-button-container">
+    <button type="button" class="button new-note-button" (click)="showNewNote()">Add Note</button>
+  </div>
+  <div class="new-note" [style.display]="newNoteVisible ? 'block' : 'none'">
+    <form>
+      <div class="note-input">
+        <label>Note Description:</label>
+        <input type="text" [(ngModel)]="newNote.noteDescription" name="description">
+      </div>
+      <div class="note-input">
+        <label>Due Date:</label>
+        <input type="date" [(ngModel)]="newNote.dueDate" name="dueDate">
+      </div>
+      <div class="note-input">
+        <label>Assignee:</label>
+        <input type="text" [(ngModel)]="newNote.assignee" name="assignee">
+      </div>
+      <div class="note-input">
+        <label>Attachments:</label>
+        <input type="text" [(ngModel)]="newNote.attachments" name="attachments">
+      </div>
+      <div class="note-input">
+        <label>Priority Level:</label>
+        <select [(ngModel)]="newNote.priorityLevel" name="priority">
+          <option style="color:#000;" value="High">High</option>
+          <option style="color:#000;" value="Medium">Medium</option>
+          <option style="color:#000;" value="Low">Low</option>
+        </select>
+      </div>
+      <div class="note-input">
+        <label>Comments:</label>
+        <textarea [(ngModel)]="newNote.comments" name="comments"></textarea>
+      </div>
+      <div class="d-flex flex-row-reverse gap-2">
+        <button type="button" class="btn btn-secondary" (click)="addNote(newNote)">Add New Note</button>
+        <button type="button" class="btn btn-default" (click)="hideNewNote()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

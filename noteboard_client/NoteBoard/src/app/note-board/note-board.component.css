@@ -1,0 +1,66 @@
+.note-board {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 90%;
+  margin: 0 auto;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.note-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-right: 20px;
+  background-color: #EAEDEE;
+  min-height: 100vh;
+  height: 100%;
+  overflow: auto;
+  max-height: 80vh;
+  min-width: 250px;
+}
+
+
+.note-container:last-child {
+  margin-right: 0;
+}
+
+.status-title {
+  text-align: center;
+  color: #000;
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  background-color: #3a7ca5;
+  border-radius: 6px 6px 0 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.note-card {
+}
+
+.note-list.hidden {
+  display: none;
+}
+
+.note-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.toggle-button-container {
+  align-self: self-end;
+  padding: 0 15px 5px 0;
+}
+
+@media only screen and (max-width: 600px) {
+
+  .note-board {
+    overflow:auto;
+  }
+}

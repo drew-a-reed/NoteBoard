@@ -1,0 +1,40 @@
+<app-new-note></app-new-note>
+<app-edit-note></app-edit-note>
+
+<div class="note-board" cdkDropListGroup cdkScrollable *ngIf="notes$ | async as notes">
+  <div class="note-container to-do" id="To Do" cdkDropList [cdkDropListData]="todo"
+    (cdkDropListDropped)="onDrop($event)">
+    <h3 class="status-title">To Do</h3>
+    <div class="note-list" id="todo-notes">
+      <app-note-card class="note-card" *ngFor="let note of todo" [note]="note">
+      </app-note-card>
+    </div>
+  </div>
+
+  <div class="note-container doing" id="Doing" cdkDropList [cdkDropListData]="doing"
+    (cdkDropListDropped)="onDrop($event)">
+    <h3 class="status-title">Doing</h3>
+    <div class="note-list" id="doing-notes">
+      <app-note-card class="note-card" *ngFor="let note of doing" [note]="note">
+      </app-note-card>
+    </div>
+  </div>
+
+  <div class="note-container review" id="Review" cdkDropList [cdkDropListData]="review"
+    (cdkDropListDropped)="onDrop($event)">
+    <h3 class="status-title">Review</h3>
+    <div class="note-list" id="review-notes">
+      <app-note-card class="note-card" *ngFor="let note of review" [note]="note">
+      </app-note-card>
+    </div>
+  </div>
+
+  <div class="note-container done" id="Done" cdkDropList [cdkDropListData]="done" (cdkDropListDropped)="onDrop($event)">
+    <h3 class="status-title">Done</h3>
+    <div class="note-list" id="done-notes">
+      <app-note-card class="note-card" *ngFor="let note of done" [note]="note">
+      </app-note-card>
+    </div>
+  </div>
+
+</div>
