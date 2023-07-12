@@ -30,17 +30,14 @@ export class NoteBoardComponent implements OnInit {
       filter(n => n?.length > 0)
     ).subscribe({
       next: (notes) => {
-        console.log('Received notes:', notes); // Debugging statement
         this.todo = notes.filter(n => n.noteStatus === 'To Do');
         this.doing = notes.filter(n => n.noteStatus === 'Doing');
         this.review = notes.filter(n => n.noteStatus === 'Review');
         this.done = notes.filter(n => n.noteStatus === 'Done');
-        console.log('Filtered notes:', this.todo, this.doing, this.review, this.done); // Debugging statement
       }
     });
 
     this.noteService.noteAdded.subscribe((newNote: Note) => {
-      console.log('New note added:', newNote); // Debugging statement
       this.onNoteAdded(newNote);
     });
   }

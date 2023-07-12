@@ -19,11 +19,15 @@ export class NoteStore extends ComponentStore<StoreState> {
   public readonly fetchNotes = this.effect((_: Observable<void>) =>
     _.pipe(
       switchMap(() => this.noteService.getNotes()),
-      tapResponse(
-        (notes) => this.updateNotes(notes),
-        (err) => console.error(err)
-      )
-    ));
+      tap(notes => this.updateNotes(notes))
+    )
+  );
+
+  public readonly addNote = this.effect((note: Observable<Note>) =>
+    note.pipe(
+      tap(noteData => this.noteService.addNote(noteData))
+    )
+  );
 
   public readonly deleteNote = this.effect((id: Observable<string>) =>
     id.pipe(
