@@ -13,9 +13,9 @@ public interface NoteDao {
 
     void updateNote(Note note);
 
-    boolean deleteNoteById(int noteId);
+    boolean deleteNoteById(String noteId);
 
-    Note getNoteById(int noteId);
+    Note getNoteById(String noteId);
 
     List<Note> getNotesByAssignee(String assignee);
 

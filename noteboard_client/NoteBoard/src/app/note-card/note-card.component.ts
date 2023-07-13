@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Note, NoteStatus } from '../interfaces/note.interface';
 import { NoteService } from '../services/note/note.service';
 import { NoteStore } from '../services/note/note.store';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-note-card',
@@ -20,7 +21,7 @@ export class NoteCardComponent {
 
   deleteNote() {
     if (confirm(`Delete ${this.note.noteDescription}?`)) {
-      this.noteStore.deleteNote(this.note.noteId)
+      this.noteStore.deleteNote(of(this.note.noteId))
     }
   }
 

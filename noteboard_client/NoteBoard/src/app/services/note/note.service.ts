@@ -26,7 +26,6 @@ export class NoteService {
     this.http.post<Note>(`${this.apiUrl}/notes`, note).subscribe(newNote => {
       this.notes.next([...this.notes.getValue(), newNote]);
     });
-    console.log("Note", note)
   }
 
   editNote(updatedNote: Note): Observable<Note> {
@@ -39,6 +38,7 @@ export class NoteService {
   }
 
   deleteNote(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/notes/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/notes/delete/${id}`);
   }
+
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { Observable, switchMap, tap } from 'rxjs';
+import { Observable, switchMap, tap, catchError, of, EMPTY } from 'rxjs';
 import { Note } from '../../interfaces/note.interface';
 import { NoteService } from './note.service';
 
@@ -29,13 +29,12 @@ export class NoteStore extends ComponentStore<StoreState> {
     )
   );
 
-  public readonly deleteNote = this.effect((id: Observable<string>) =>
-    id.pipe(
-      tap(() => console.log('here')),
-      tapResponse(
-        (id) => {
+  public readonly deleteNote = this.effect((id$: Observable<string>) =>
+  id$.pipe(
+    switchMap(id =>
+      this.noteService.deleteNote(id).pipe(
+        tap(() => {
           const currentNotes = this.get().notes;
-          this.noteService.deleteNote(id);
           console.log('currentNotes', {
             storeNotes: currentNotes,
             onlyIds: currentNotes.map(n => n.noteId),
@@ -43,10 +42,17 @@ export class NoteStore extends ComponentStore<StoreState> {
             found: currentNotes.map(n => n.noteId).includes(id)
           })
           this.updateNotes(currentNotes.filter(n => n.noteId !== id));
-        },
-        (err) => console.error(err)
+        }),
       )
-    ))
+    ),
+    catchError((err: any) => {
+      console.error(err);
+      return EMPTY;
+    })
+  )
+)
+
+
 
   public readonly selectNote = this.effect((note: Observable<Note>) =>
     note.pipe(

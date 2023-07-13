@@ -60,14 +60,14 @@ public class JdbcNoteDao implements NoteDao {
 
 
     @Override
-    public boolean deleteNoteById(int noteId) {
+    public boolean deleteNoteById(String noteId) {
         String sql = "DELETE FROM notes WHERE note_id =?";
         jdbcTemplate.update(sql,noteId);
         return true;
     }
 
     @Override
-    public Note getNoteById(int noteId) {
+    public Note getNoteById(String noteId) {
         String sql = "SELECT * FROM notes WHERE note_id=?";
         SqlRowSet results = this.jdbcTemplate.queryForRowSet(sql, noteId);
         Note note = null;

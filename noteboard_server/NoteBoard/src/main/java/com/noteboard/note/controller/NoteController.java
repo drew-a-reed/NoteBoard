@@ -26,7 +26,7 @@ public class NoteController {
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateNote(
-            @PathVariable("id") int noteId,
+            @PathVariable("id") String noteId,
             @RequestBody Note updatedNote) {
         Note existingNote = noteDao.getNoteById(noteId);
         if (existingNote == null) {
@@ -38,17 +38,18 @@ public class NoteController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteNoteById(@PathVariable("id") int noteId) {
+    public ResponseEntity<?> deleteNoteById(@PathVariable("id") String noteId) {
         boolean success = noteDao.deleteNoteById(noteId);
         if (success) {
-            return ResponseEntity.ok("Note deleted successfully");
+            return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
+
     @GetMapping("/{id}")
-    public ResponseEntity<Note> getNoteById(@PathVariable("id") int noteId) {
+    public ResponseEntity<Note> getNoteById(@PathVariable("id") String noteId) {
         Note note = noteDao.getNoteById(noteId);
         if (note == null) {
             return ResponseEntity.notFound().build();
