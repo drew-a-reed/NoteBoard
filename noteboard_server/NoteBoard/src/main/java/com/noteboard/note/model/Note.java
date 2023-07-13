@@ -12,10 +12,8 @@ import java.util.Date;
 @Table(name = "notes")
 public class Note {
     @jakarta.persistence.Id
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int noteId;
+    
+    private String noteId;
     private String noteDescription;
     private Date dueDate;
     private String assignee;
@@ -24,7 +22,7 @@ public class Note {
     private String comments;
     private String noteStatus;
 
-    public Note(int noteId, String noteDescription, Date dueDate, String assignee, String attachments, String priorityLevel, String comments, String noteStatus) {
+    public Note(String noteId, String noteDescription, Date dueDate, String assignee, String attachments, String priorityLevel, String comments, String noteStatus) {
         this.noteId = noteId;
         this.noteDescription = noteDescription;
         this.dueDate = dueDate;
@@ -37,9 +35,9 @@ public class Note {
 
     public Note() { }
 
-    public void setNoteId(int noteId) { this.noteId = noteId; }
+    public void setNoteId(String noteId) { this.noteId = noteId; }
 
-    public int getNoteId() { return noteId; }
+    public String getNoteId() { return noteId; }
 
     public String getNoteDescription() {
         return noteDescription;

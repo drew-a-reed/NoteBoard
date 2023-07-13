@@ -19,9 +19,9 @@ public class NoteController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createNote(@RequestBody Note note) {
+    public ResponseEntity<Void> createNote(@RequestBody Note note) {
         noteDao.createNote(note);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Note created successfully");
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

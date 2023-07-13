@@ -19,7 +19,7 @@ public class JdbcNoteDao implements NoteDao {
     private Note noteObjectMapper(SqlRowSet results) {
 
         Note note = new Note();
-        note.setNoteId(results.getInt("note_id"));
+        note.setNoteId(results.getString("note_id"));
         note.setNoteDescription(results.getString("note_description"));
         note.setDueDate(results.getDate("due_date"));
         note.setAssignee(results.getString("assignee"));
