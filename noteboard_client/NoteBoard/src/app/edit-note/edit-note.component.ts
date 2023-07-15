@@ -40,10 +40,13 @@ export class EditNoteComponent implements OnInit {
     }
   }
 
-  onSaveNote() {
-    this.noteService.editNote(this.note); // call the editNote method on the NoteService with the updated note
-    this.noteEdited.emit(this.note); // emit the updated note to the parent component
-    this.hideEditNote(); // hide the edit note container
+  editNote() {
+    this.noteService.editNote(this.note).subscribe(updatedNote => {
+      this.note = updatedNote;  // Update the note in the component state with the updated note from the server
+      this.noteEdited.emit(this.note); // emit the updated note to the parent component
+      this.hideEditNote(); // hide the edit note container
+    });
   }
+
 
 }

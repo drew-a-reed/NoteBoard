@@ -1,7 +1,7 @@
 <div class="edit-note-container">
   <div class="edit-note" [style.display]="isExpanded ? 'block' : 'none'">
     <h2>Edit Note</h2>
-    <form (submit)="onSaveNote()">
+    <form (submit)="editNote()">
       <div class="note-input">
         <label>Note Description:</label>
         <input type="text" [(ngModel)]="note.noteDescription" name="description">
