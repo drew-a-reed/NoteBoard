@@ -26,7 +26,6 @@ export class NoteCardComponent {
   }
 
   editNotePush() {
-    console.log('called this editNote')
     this.noteService.editNotePushed.emit(this.note);
   }
 

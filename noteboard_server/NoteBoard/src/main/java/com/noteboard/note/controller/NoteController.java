@@ -5,7 +5,9 @@ import com.noteboard.note.model.Note;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -20,12 +22,22 @@ public class NoteController {
 
     @PostMapping
     public ResponseEntity<Void> createNote(@RequestBody Note note) {
-        noteDao.createNote(note);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        try {
+            noteDao.createNote(note);
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(note.getNoteId())
+                    .toUri();
+            return ResponseEntity.created(location).build();
+        } catch (Exception e) {
+            // Handle the error
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateNote(
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateNote(
             @PathVariable("id") String noteId,
             @RequestBody Note updatedNote) {
         Note existingNote = noteDao.getNoteById(noteId);
@@ -34,7 +46,7 @@ public class NoteController {
         }
         updatedNote.setNoteId(existingNote.getNoteId());
         noteDao.updateNote(updatedNote);
-        return ResponseEntity.ok("Note updated successfully");
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/delete/{id}")
