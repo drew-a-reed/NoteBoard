@@ -3,16 +3,18 @@ package com.noteboard.note.dao;
 import com.noteboard.note.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class JdbcUserDao implements UserDao {
 
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public JdbcUserDao(DataSource ds) {
         this.jdbcTemplate = new JdbcTemplate(ds);
@@ -66,19 +68,26 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public boolean createUser(User user) {
+
         String username = user.getUsername();
-        String password = user.getPassword();
+        String plainPassword = user.getPassword();
+
+        int strength = 10; // work factor of bcrypt
+        BCryptPasswordEncoder bCryptPasswordEncoder =
+                new BCryptPasswordEncoder(strength, new SecureRandom());
+        String encodedPassword = bCryptPasswordEncoder.encode(plainPassword);
+
 
         if (username == null) {
             throw new IllegalArgumentException("Username must not be null");
         }
 
-        if (password == null) {
+        if (plainPassword == null) {
             throw new IllegalArgumentException("Password must not be null");
         }
 
         String sql = "INSERT INTO users (username, password, active) VALUES (?, ?, true)";
-        jdbcTemplate.update(sql, username, password);
+        jdbcTemplate.update(sql, username, encodedPassword);
 
         return true;
     }
