@@ -33,8 +33,4 @@ export class NoteCardComponent {
     this.isExpanded = !this.isExpanded;
   }
 
-  updateStatus(newStatus: NoteStatus): void {
-    this.noteService.updateNoteStatus(this.note, newStatus);
-  }
-
 }

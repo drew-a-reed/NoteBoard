@@ -29,13 +29,7 @@ export class NoteService {
   }
 
   editNote(updatedNote: Note): Observable<Note> {
-    console.log(updatedNote, "updatedNote");
     return this.http.put<Note>(`${this.apiUrl}/notes/update/${updatedNote.noteId}`, updatedNote);
-  }
-
-  updateNoteStatus(updatedNote: Note, toStatus: NoteStatus): Observable<Note> {
-    updatedNote.noteStatus = toStatus;
-    return this.http.put<Note>(`${this.apiUrl}/notes/${updatedNote.noteId}`, updatedNote);
   }
 
   deleteNote(id: string): Observable<void> {

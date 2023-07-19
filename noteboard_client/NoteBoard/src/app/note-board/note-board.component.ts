@@ -57,14 +57,20 @@ export class NoteBoardComponent implements OnInit {
     } else {
       const toStatus = event.container.id as NoteStatus;
       const note = event.item.data;
-      this.noteService.updateNoteStatus(note, toStatus);
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+      note.noteStatus = toStatus;
+      this.noteService.editNote(note)
+        .subscribe(updatedNote => {
+          transferArrayItem(
+            event.previousContainer.data,
+            event.container.data,
+            event.previousIndex,
+            event.currentIndex
+          );
+        }, error => {
+          console.error('Could not update note status:', error);
+        });
     }
   }
+
 
 }
