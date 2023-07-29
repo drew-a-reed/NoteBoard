@@ -4,6 +4,7 @@ import com.noteboard.note.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -15,10 +16,13 @@ import java.util.List;
 public class JdbcUserDao implements UserDao {
 
     private final JdbcTemplate jdbcTemplate;
+    private final PasswordEncoder passwordEncoder;
 
-    public JdbcUserDao(DataSource ds) {
+    public JdbcUserDao(DataSource ds, PasswordEncoder passwordEncoder) {
         this.jdbcTemplate = new JdbcTemplate(ds);
+        this.passwordEncoder = passwordEncoder;
     }
+
 
     private User userObjectMapper(SqlRowSet results) {
         User user = new User();
@@ -68,15 +72,10 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public boolean createUser(User user) {
-
         String username = user.getUsername();
         String plainPassword = user.getPassword();
 
-        int strength = 10; // work factor of bcrypt
-        BCryptPasswordEncoder bCryptPasswordEncoder =
-                new BCryptPasswordEncoder(strength, new SecureRandom());
-        String encodedPassword = bCryptPasswordEncoder.encode(plainPassword);
-
+        String encodedPassword = passwordEncoder.encode(plainPassword);
 
         if (username == null) {
             throw new IllegalArgumentException("Username must not be null");
