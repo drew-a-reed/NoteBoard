@@ -1,6 +1,0 @@
-{
-  "javascript.preferences.importModuleSpecifier": "relative",
-  "typescript.preferences.importModuleSpecifier": "relative",
-  "typescript.preferences.quoteStyle": "single",
-  "javascript.preferences.quoteStyle": "single"
-}
