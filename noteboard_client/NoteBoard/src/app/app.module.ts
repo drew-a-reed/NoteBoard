@@ -10,6 +10,8 @@ import { NoteCardComponent } from './note-card/note-card.component';
 import { DaysDuePipe } from './pipes/days-due.pipe';
 import { StatusFilterPipe } from './pipes/status-filter.pipe';
 import {HttpClientModule} from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import {HttpClientModule} from '@angular/common/http';
     NoteCardComponent,
     NoteBoardComponent,
     NewNoteComponent,
-    EditNoteComponent
+    EditNoteComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,11 @@ import {HttpClientModule} from '@angular/common/http';
     DragDropModule,
     StatusFilterPipe,
     DaysDuePipe,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot([
+      {path: 'login', component: LoginComponent},
+      {path: 'note-board', component: NoteBoardComponent}
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
